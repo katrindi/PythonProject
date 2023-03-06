@@ -13,7 +13,7 @@ def filter_list(whole_list):
         # Check each list in the data_list
         for sub_lists in data_list:
             # Check if the numbers in the list are between 0-100 range
-            numbers_in_range = filter(lambda numbers: (numbers < 100) and (numbers > 0), sub_lists)
+            numbers_in_range = filter(lambda numbers: (numbers <= 100) and (numbers >= 0), sub_lists)
             # Save the numbers which are in range as filtered_list
             filtered_list = list(numbers_in_range)
             
