@@ -12,7 +12,7 @@ def filter_list(whole_list):
     if isinstance(whole_list, list):
         # Check each list in the data_list
         for sub_lists in data_list:
-            # Check if the numbers in the list are between 0-100 range
+            # Check if the numbers in the list are between 10-100 range
             numbers_in_range = filter(lambda numbers: (numbers <= 100) and (numbers >= 10), sub_lists)
             # Save the numbers which are in range as filtered_list
             filtered_list = list(numbers_in_range)
