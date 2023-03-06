@@ -1,32 +1,35 @@
-# Task 1
-# Create default variables which are strings.
-n = ""
-a = "ktur"
-b = "ila"
-# Check if the variable are strings,
-try:
-    # New function which will calculate the score
-    def text_score(x, y, z):
-        if len(x) == 0:
-            print("X value cannot be an empty string")
-        else:
-            # Define the initializing score as 0
-            score = 0
-            # Check characters in y string
-            for char_y in y:
-                # If there is matching between the characters in positive number
-                if char_y in x:
-                    # Increase score by +1
-                    score += 1
-            for char_z in z:
-                # If there is matching between the characters in negative number
-                if char_z in x:
-                    # Decrease score by -1
-                    score -= 1
-            # Print the final score, after comparison
-            print(score)
-    # Calling function with n,a,b values
-    text_score(n, a, b)
-# If the variables are not of string type - get error.
-except:
-    print("The variables should be a string!")
+# -- TASK 1 -- #
+# Define default variables, give them values
+n = "vienas du trys"
+a = "vn "
+b = "ayds"
+
+# ERROR HANDLING #
+
+# [1] Checking whether all inputs are strings
+if not isinstance(n, str) or not isinstance(a, str) or not isinstance(b, str):
+    raise TypeError("All inputs must be strings")
+
+# [2] Checking whether input string is empty
+if len(n) == 0:
+    raise TypeError("Input string cannot be empty")
+
+# Score function which will calculate the total score
+def calculate_text_score(text, positive_chars, negative_chars):
+    # Define the initializing score as 0
+    score = 0
+    # Going through full text variable
+    for char in text:
+        # If CHAR is in positive CHARS, increase score
+        if char in positive_chars:
+            score += 1
+        # If CHAR is in negative CHARS, decrease score
+        elif char in negative_chars:
+            score -= 1
+
+    # Print the final score
+    print(score)
+
+# Calling function with n,a,b values
+calculate_text_score(n, a, b)
+
