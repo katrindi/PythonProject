@@ -10,7 +10,7 @@ data_list = [
 def substract_by_10(func):
     def wrapper(a):
         # Create new list which subtraction
-        modified_list = [number / 10 for number in a]
+        modified_list = [number - 10 for number in a]
         return func(modified_list)
     return wrapper
 
