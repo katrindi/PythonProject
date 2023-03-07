@@ -8,14 +8,14 @@ print("The length of the characters is : ", x_len)
 # Ask the user to enter a single positive digit (y)
 y = int(input("Please enter a single positive digit (y) : "))
 
-# try,except for checking if "y" is a valid single-digit positive integer
+# try,except for checking if "y" is a valid single digit positive integer
 try:
     y = int(y)
-    # Check if the digit is positive
-    if not (0 < y):
-        raise ValueError("ERROR: y must be a single-digit positive integer")
+    # Check if the digit is a single and positive
+    if not (0 < y <10):
+        raise ValueError("ERROR: y must be a single digit positive integer")
 except ValueError:
-    print("ERROR: y must be a single-digit positive integer")
+    print("ERROR: y must be a single digit positive integer")
     exit()
 
 # Check if "x" is not empty and has a length divisible by the length of "y"
