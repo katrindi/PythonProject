@@ -2,6 +2,9 @@
 
 # Ask the user to enter a sequence of characters (x)
 x = input("Hello. Here, you need to enter a sequence of characters(x): ")
+# Print the length of characters (x)
+x_len = len(x)
+print("The length of the charaters is : ", x_len)
 # Ask the user to enter a single positive digit (y)
 y_spd = input("Please enter a SINGLE POSITIVE DIGIT(y): ")
 
@@ -34,5 +37,3 @@ for i in range(0, len(x), y):
 
     # Print the unique characters, keeping them in order
     print(unique_chars)
-
-
