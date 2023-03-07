@@ -1,7 +1,9 @@
 # -- TASK 1 -- #
 
-# Assign input values to variables using tuple unpacking
-n, a, b = input("Enter full text, text with positive characters, and text with negative characters separated by commas: ").split(",")
+# Define task variables, give them values
+n = "vienas du trys"
+a = "vn "
+b = "ayds"
 
 def calculate_text_score(text, negative_chars, positive_chars):
     # Check that all inputs are strings
