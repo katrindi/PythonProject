@@ -3,25 +3,25 @@
 # Assign input values to variables using tuple unpacking
 n, a, b = input("Enter full text, text with positive characters, and text with negative characters separated by commas: ").split(",")
 
-def calculate_text_score(text, positive_chars, negative_chars):
+def calculate_text_score(text, negative_chars, positive_chars):
     # Check that all inputs are strings
-    if not isinstance(n, str) or not isinstance(a, str) or not isinstance(b, str):
+    if not isinstance(text, str) or not isinstance(positive_chars, str) or not isinstance(negative_chars, str):
         raise TypeError("All inputs must be strings")
     
     # Check that all inputs are non-empty
-    if len(n) == 0 or len(a) == 0 or len(b) == 0:
+    if len(text) == 0 or len(positive_chars) == 0 or len(negative_chars) == 0:
         raise ValueError("All inputs must be non-empty")
     
     # Initialize score to 0
     score = 0
     
     # Loop through each character in n
-    for c in n:
-        # If the character is in a, increment score
-        if c in a:
+    for c in text:
+        # If the character is in a (positive chars), increment score
+        if c in positive_chars:
             score += 1
-        # If the character is in b, decrement score
-        elif c in b:
+        # If the character is in b (negative chars), decrease score
+        elif c in negative_chars:
             score -= 1
     
     # Return the calculated score

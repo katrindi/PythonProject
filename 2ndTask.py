@@ -19,7 +19,7 @@ def filter_list(whole_list):
             filtered_list = list(numbers_in_range)
             # Check if the list isn't empty
             if filtered_list:
-                # Define mean,max,min and sum parameters
+                # Define and calculate mean,max,min and sum parameters
                 mean_list = sum(filtered_list) / len(filtered_list)
                 max_list = max(filtered_list)
                 min_list = min(filtered_list)
