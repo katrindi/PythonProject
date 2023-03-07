@@ -25,10 +25,15 @@ if len(x) == 0:
 if len(x) % y != 0:
     print("ERROR: The length of x must be divisible by the length of y")
     exit()
+    
 # Default variables of split_number and start_point
 split_number = y
 start_point = 0
-for n in range(y):
+
+# For loop starts at the first argument (in this case, 0),
+# goes up to but does not include the second argument (in this case, len(x))
+# and increments by the third argument (in this case, y)
+for n in range(0, len(x), y):
     # Splitting the sequence by indication of start point and the end point
     sub_word = x[start_point:(start_point + split_number)]
     # Increase the start point by the split number
