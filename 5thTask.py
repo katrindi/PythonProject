@@ -1,4 +1,4 @@
-# Task 5
+# -- TASK 5 -- #
 
 # Assign input value to a variable
 x = input("Enter a string: ")

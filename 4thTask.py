@@ -1,4 +1,4 @@
-# Task 4
+# -- TASK 4 -- #
 
 data_list = [
     [1, 10, 34, 110, 400, 30, 20],
@@ -9,17 +9,20 @@ number_x = 10
 
 
 # Decorator function for subtraction
-def subtract_by_10(func):
-    # Take the values
-    def wrapper(a, b, c, d):
-        # Subtract 10 from each of values
-        new_mean = a - 10
-        new_max = b - 10
-        new_min = c - 10
-        new_sum = d - 10
-        # Return the values
-        return func(new_mean, new_max, new_min, new_sum)
-    return wrapper
+
+def subtract_by_x(x):
+    def decorator(func):
+        # Take the values
+        def wrapper(a, b, c, d):
+            # Subtract 10 from each of values
+            new_mean = a - x
+            new_max = b - x
+            new_min = c - x
+            new_sum = d - x
+            # Return the values
+            return func(new_mean, new_max, new_min, new_sum)
+        return wrapper
+    return decorator
 
 
 # Function to filter the list
@@ -41,7 +44,7 @@ def filter_list(whole_list):
                 sum_list = sum(filtered_list)
 
                 # Use substract decorator
-                @subtract_by_10
+                @subtract_by_x(10)
                 # Function to print the parameters
                 def print_filtered_list(x, y, z, w):
                     # Print the necessary values

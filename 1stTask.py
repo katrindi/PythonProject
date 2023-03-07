@@ -1,4 +1,4 @@
-# Task 1
+# -- TASK 1 -- #
 
 # Assign input values to variables using tuple unpacking
 n, a, b = input("Enter full text, text with positive characters, and text with negative characters separated by commas: ").split(",")
