@@ -6,10 +6,11 @@ x = input("Please enter a sequence of characters (x) :")
 x_len = len(x)
 print("The length of the characters is : ", x_len)
 # Ask the user to enter a single positive digit (y)
-y = int(input("Please enter a single positive digit (y) : "))
+y = input("Please enter a single positive digit (y) : ")
 
 # try,except for checking if "y" is a valid single digit positive integer
 try:
+    # If the user will enter not a number, but a letter to "y", then a "ValueError" will be raised
     y = int(y)
     # Check if the digit is a single and positive
     if not (0 < y <10):
