@@ -4,6 +4,13 @@
 x = input("Enter a string: ")
 
 def compress_text(x):
+    # Check if string has non-alphabetical characters
+    def check_string(string):
+        for char in string:
+            if not char.isalpha():
+                raise ValueError("String must contain only alphabetical characters")
+    check_string(x)
+        
     # Check if the input is a string
     if not isinstance(x, str):
         raise TypeError("Input must be a string")
