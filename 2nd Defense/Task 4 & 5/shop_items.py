@@ -38,6 +38,7 @@ class Item:
 
 
 class Food(Item):
+    # Constructor accepts three parameters: item name, quantity (default value 1), price (default value 10).
     def __init__(self, item_name, quantity=1, price=10):
         super().__init__(item_name, quantity, price)
 
@@ -47,6 +48,7 @@ class Food(Item):
 
 
 class Drink(Item):
+    # Constructor accepts three parameters: item name, quantity (default value 1), price (default value 10).
     def __init__(self, item_name, quantity=1, price=10):
         super().__init__(item_name, quantity, price)
 
