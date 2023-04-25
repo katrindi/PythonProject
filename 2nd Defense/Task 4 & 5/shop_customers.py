@@ -9,10 +9,10 @@ class Customer:
     # "Customer" class constructor
     def __init__(self, customer_name, item_list=None):
         try:
-            # Checking the customer_name value, it should be a string
+            # Checking the customer_name value which should be a string
             if not isinstance(customer_name, str):
                 raise ValueError("Customer name must be a string !")
-            # .__ makes the customer name private
+            # The '.__' makes the customer name private
             self.__customer_name = customer_name
             # Increment the value by one when creating customers
             Customer.identifier += 1
@@ -39,11 +39,13 @@ class Customer:
         except Exception as err:
             print("An error occurred while updating the customer name:", str(err))
 
+    # Method which adds item to the list.
     def add_item(self, item):
         # Checking the type of the item, if it is correct
         if isinstance(item, (Food, Drink)):
             # Add the item to the item_list
             self.item_list.append(item)
+        else print("There is a problem with the item type.")
 
     def get_items(self):
         whole_list = []
@@ -51,6 +53,7 @@ class Customer:
             whole_list.append(item.full_info().strip())
         return whole_list
 
+    # Method which removes an item in specific index
     def remove_item(self, index):
         try:
             self.item_list.pop(index)
@@ -79,6 +82,7 @@ class Customer:
         with open(path, "r", encoding="utf8") as file_obj:
             json_data = json.load(file_obj)
             customer_name = json_data['name']
+            Customer.identifier = json_data['identifier']
             item_list = []
             for item_data in json_data['items']:
                 full_value = item_data['full']
