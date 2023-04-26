@@ -26,7 +26,7 @@ class Item:
 
     # Method which returns text consisting of item name + item price + item quantity + get_total_price().
     def full_info(self):
-        return "{} {} {} {}".format(self.item_name, self.price, self.quantity, self.get_total_price())
+        return "{} {} {} {}\n".format(self.item_name, self.price, self.quantity, self.get_total_price())
 
     # Method which returns data in the dictionary.
     def to_dict(self):
@@ -44,7 +44,7 @@ class Food(Item):
 
     # Rewriting the method "full_info"
     def full_info(self):
-        return "{} {} {} {} {}".format("Food", self.item_name, self.price, self.quantity, self.get_total_price())
+        return "{} {} {} {} {}\n".format("Food", self.item_name, self.price, self.quantity, self.get_total_price())
 
 
 class Drink(Item):
@@ -54,4 +54,4 @@ class Drink(Item):
 
     # Rewriting the method "full_info"
     def full_info(self):
-        return "{} {} {} {} {}".format("Drink", self.item_name, self.price, self.quantity, self.get_total_price())
+        return "{} {} {} {} {}\n".format("Drink", self.item_name, self.price, self.quantity, self.get_total_price())
