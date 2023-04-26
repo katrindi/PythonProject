@@ -55,3 +55,4 @@ class Drink(Item):
     # Rewriting the method "full_info"
     def full_info(self):
         return "{} {} {} {} {}\n".format("Drink", self.item_name, self.price, self.quantity, self.get_total_price())
+
