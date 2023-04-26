@@ -83,7 +83,7 @@ class Customer:
         with open(path, "r", encoding="utf8") as file_obj:
             json_data = json.load(file_obj)
             customer_name = json_data['name']
-            Customer.identifier = json_data['identifier']
+            Customer.identifier = json_data['identifier'] - 1
             item_list = []
             for item_data in json_data['items']:
                 full_value = item_data['full']
@@ -95,5 +95,6 @@ class Customer:
                 else:
                     raise ValueError("Invalid item type found in the JSON file!")
                 item_list.append(item)
+
             return cls(customer_name,item_list)
             return Customer.identifier
