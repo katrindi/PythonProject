@@ -35,35 +35,41 @@ class Customer:
     # Method which returns text consisting of customer identifier + customer name.
     def full_info(self):
         try:
-            return "\n{} {}".format(self.customer_identifier, self.__customer_name)
+            return "{} {}\n".format(self.customer_identifier, self.__customer_name)
         except Exception as err:
             print("An error occurred while updating the customer name:", str(err))
 
     # Method which accepts a food or drink object and saves it to the customer.
     def add_item(self, item):
         # Checking the type of the item, if it is correct
-        if isinstance(item, (Food, Drink)):
-            # Add the item to the item_list
-            self.item_list.append(item)
+        try:
+            if isinstance(item, (Food, Drink)):
+                # Add the item to the item_list
+                self.item_list.append(item)
+        except TypeError:
+            print("Error the type of the item isn't correct\n")
+
 
     # Method which returns a list of all items where each item is represented by its "full_info" method results.
     def get_items(self):
         whole_list = []
         for item in self.item_list:
             whole_list.append(item.full_info().strip())
-        return whole_list
+        return "{}\n".format(whole_list)
 
     # Method  which accepts an item index and removes that item from the customer's shopping cart
     def remove_item(self, index):
         try:
             self.item_list.pop(index)
         except IndexError:
-            print("Error removing item")
+            print("Error removing item\n")
 
     # Method which accepts a file path to save the data to.
     def export_to_json(self, path):
+        # items list parameter
         items = []
         for item in self.item_list:
+            #
             item_dicts = item.to_dict().copy()
             item_dicts['full'] = (item.full_info())
             items.append(item_dicts)
