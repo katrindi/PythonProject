@@ -145,6 +145,9 @@ for result in all_queries.all():
 # Task 5 - (Creating queries)
 
 # Select items that have related components
+print("The items with related components:")
+items_with_components = session.query(Item).join(Component).all()
+print(items_with_components)
 
 # Select items, which name contains 'ien'
 # First way
