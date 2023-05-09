@@ -186,4 +186,11 @@ print(sum_components)
 
 
 # At your discretion, form a query for the selected data and describe it.
+# At your discretion, form a query for the selected data and describe it.
+# Query the Component table and filter the records based on quantity -> In which the "quantity is greater than 1"
+components = session.query(Component).filter(Component.quantity > 1)
 
+# Print the names and quantities of the components
+print("Components with quantity > 1:")
+for component in components:
+    print(f"{component.name} - {component.quantity}")
