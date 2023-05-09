@@ -6,10 +6,17 @@ from datetime import datetime
 # Use of text in query formation
 from sqlalchemy import text
 from sqlalchemy import func
+from sqlalchemy.exc import OperationalError, IntegrityError
 
 # Task 1 - (Creating DB)
 # Program will break if .db file already exists!
-engine = create_engine('sqlite:///shop27.db', echo=True)
+
+try:
+    engine = create_engine('sqlite:///shop27.db', echo=True)
+except OperationalError as e:
+    print(f"Could not connect to database: {e}")
+    exit()
+
 Base = declarative_base()
 
 
@@ -83,7 +90,7 @@ class Component(Base):
 try:
     # Creation table in database
     Base.metadata.create_all(engine)
-except Exception as err:
+except OperationalError as err:
     print(f"There is an error during creating tables: {err}")
     exit()
 
@@ -97,8 +104,8 @@ try:
     # Create records in shop table
     shop1 = Shop(name='IKI', address='Kaunas, Iki street 1')
     shop2 = Shop(name='MAXIMA', address='Kaunas, Maksima street 2')
-except Exception as err:
-    print(f"There is an error during adding shops: {err}")
+except IntegrityError  as err:
+    print(f"There is an error during adding shops to database: {err}")
     session.rollback()
     exit()
 
@@ -108,8 +115,8 @@ try:
     item2 = Item(barcode='33333222111', name='Klaipeda milk', description='Milk from Klaipeda', unit_price=2.69, shop=shop1)
     item3 = Item(barcode='99898989898', name='Aukštaičių bread', unit_price=1.65, shop=shop2)
     item4 = Item(barcode='99919191991', name='Vilnius milk', description='Milk from Vilnius', unit_price=2.99, shop=shop2)
-except Exception as err:
-    print(f"There is an error during adding items: {err}")
+except IntegrityError as err:
+    print(f"There is an error during adding items to database: {err}")
     session.rollback()
     exit()
 
@@ -121,8 +128,8 @@ try:
     component4 = Component(name='Flour', quantity=1.60, item=item3)
     component5 = Component(name='Water', quantity=1.10, item=item3)
     component6 = Component(name='Milk', quantity=1.10, item=item4)
-except Exception as err:
-    print(f"There is an error during adding components: {err}")
+except IntegrityError as err:
+    print(f"There is an error during adding components to database: {err}")
     session.rollback()
     exit()
 
