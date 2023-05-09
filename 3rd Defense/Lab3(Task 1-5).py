@@ -9,7 +9,7 @@ from sqlalchemy import func
 
 # Task 1 - (Creating DB)
 # Program will break if .db file already exists!
-engine = create_engine('sqlite:///shop26.db', echo=True)
+engine = create_engine('sqlite:///shop27.db', echo=True)
 Base = declarative_base()
 
 
@@ -44,7 +44,7 @@ class Item(Base):
     # description value which should be a string, max length - 200, default value - EMPTY
     description = Column(String(200), default="EMPTY")
     # unit_price value which should be a decimal (10, 2), not NULL, default value 1.00
-    unit_price = Column(Numeric(10,2), nullable=False, default=1.00)
+    unit_price = Column(Numeric(10, 2), nullable=False, default=1.00)
     # created_at value which should be a DateTime, default value - record creation date and time
     created_at = Column(DateTime, default=datetime.now())
     # shop_id which should be an integer, FK to shops.id
@@ -69,7 +69,7 @@ class Component(Base):
     # name value which should be a string, max length - 20
     name = Column(String(20))
     # quantity value which should be a decimal (10, 2), default value 1.00
-    quantity = Column(Numeric(10,2), default=1.00)
+    quantity = Column(Numeric(10, 2), default=1.00)
     # item_id which should be an integer, FK to items.id
     item_id = Column(Integer, ForeignKey('items.id'))
     # item value which should has a relation to Item
@@ -80,32 +80,55 @@ class Component(Base):
         return "<Component(name='%s', quantity=%s)>" % (self.name, self.quantity)
 
 
-# A table creation in the database
-Base.metadata.create_all(engine)
+try:
+    # Creation table in database
+    Base.metadata.create_all(engine)
+except Exception as err:
+    print(f"There is an error during creating tables: {err}")
+    exit()
+
 
 # Task 2 - (Creating records with values for DB)
 # Creating a session that lets you "chat" with databases
 Session = sessionmaker(bind=engine)
 session = Session()
 
-# Create records in shop table
-shop1 = Shop(name='IKI', address='Kaunas, Iki street 1')
-shop2 = Shop(name='MAXIMA', address='Kaunas, Maksima street 2')
-# Create records in Item table
-item1 = Item(barcode='112233112233', name='Žemaičių bread', unit_price=1.55, shop=shop1)
-item2 = Item(barcode='33333222111', name='Klaipeda milk', description='Milk from Klaipeda', unit_price=2.69, shop=shop1)
-item3 = Item(barcode='99898989898', name='Aukštaičių bread', unit_price=1.65, shop=shop2)
-item4 = Item(barcode='99919191991', name='Vilnius milk', description='Milk from Vilnius', unit_price=2.99, shop=shop2)
-# Create records in Component table
-component1 = Component(name='Flour', quantity=1.50, item=item1)
-component2 = Component(name='Water', quantity=1.00, item=item1)
-component3 = Component(name='Milk', quantity=1.00, item=item2)
-component4 = Component(name='Flour', quantity=1.60, item=item3)
-component5 = Component(name='Water', quantity=1.10, item=item3)
-component6 = Component(name='Milk', quantity=1.10, item=item4)
+try:
+    # Create records in shop table
+    shop1 = Shop(name='IKI', address='Kaunas, Iki street 1')
+    shop2 = Shop(name='MAXIMA', address='Kaunas, Maksima street 2')
+except Exception as err:
+    print(f"There is an error during adding shops: {err}")
+    session.rollback()
+    exit()
+
+try:
+    # Create records in Item table
+    item1 = Item(barcode='112233112233', name='Žemaičių bread', unit_price=1.55, shop=shop1)
+    item2 = Item(barcode='33333222111', name='Klaipeda milk', description='Milk from Klaipeda', unit_price=2.69, shop=shop1)
+    item3 = Item(barcode='99898989898', name='Aukštaičių bread', unit_price=1.65, shop=shop2)
+    item4 = Item(barcode='99919191991', name='Vilnius milk', description='Milk from Vilnius', unit_price=2.99, shop=shop2)
+except Exception as err:
+    print(f"There is an error during adding items: {err}")
+    session.rollback()
+    exit()
+
+try:
+    # Create records in Component table
+    component1 = Component(name='Flour', quantity=1.50, item=item1)
+    component2 = Component(name='Water', quantity=1.00, item=item1)
+    component3 = Component(name='Milk', quantity=1.00, item=item2)
+    component4 = Component(name='Flour', quantity=1.60, item=item3)
+    component5 = Component(name='Water', quantity=1.10, item=item3)
+    component6 = Component(name='Milk', quantity=1.10, item=item4)
+except Exception as err:
+    print(f"There is an error during adding components: {err}")
+    session.rollback()
+    exit()
 
 # New Shop, Item, Component objects are written to the session add_all([])
-session.add_all([shop1, shop2, item1, item2, item3, item4, component1, component2, component3, component4, component5, component6])
+session.add_all(
+    [shop1, shop2, item1, item2, item3, item4, component1, component2, component3, component4, component5, component6])
 # Initiating the writing data into the database
 session.commit()
 
@@ -133,9 +156,9 @@ session.commit()
 # Print the items of all shops, as well as the components of those items.
 
 # Query to get all items, their components from all shops
-all_queries = session.query(Shop.name, Item.name, Component.name)\
-              .join(Item, Shop.id == Item.shop_id)\
-              .join(Component, Item.id == Component.item_id)
+all_queries = session.query(Shop.name, Item.name, Component.name) \
+    .join(Item, Shop.id == Item.shop_id) \
+    .join(Component, Item.id == Component.item_id)
 
 # Iterate over the results and print the data by using .all() which returns all objects as a list
 print("----------DATA OUTPUT--------------")
@@ -152,10 +175,10 @@ related_items = {}
 
 # iterate through all components
 for component in session.query(Component).all():
-    
+
     # get all items that have this component
     items_with_component = session.query(Item).join(Component).filter(Component.id == component.id).all()
-    
+
     # add these items to the related_items dictionary
     for item in items_with_component:
         if component.name in related_items:
@@ -168,12 +191,11 @@ for component, items in related_items.items():
     if len(items) > 1:
         print(f"Items with {component}: {', '.join(items)}")
 
-
 print("--------------------------------------------")
 
 # 5.2 Select items, which name contains 'ien'
 # First way
-query_ien = session.query(Item).from_statement(text("SELECT * FROM items WHERE name LIKE :name")).\
+query_ien = session.query(Item).from_statement(text("SELECT * FROM items WHERE name LIKE :name")). \
     params(name='%ien%').all()
 # If the len of the query_name_ien is equal to 0,
 # It means that there are no matching items
@@ -198,7 +220,6 @@ else:
     # Then it will print them
     print("The items which contain 'ead' are : {}".format(query_name_ien.all()))
 
-
 # Count how many components each item consists of
 number_components = session.query(Item.name, func.count(Component.id)).join(Component).group_by(Item.id).all()
 print(number_components)
@@ -206,7 +227,6 @@ print(number_components)
 # Calculate the quantity of components for each item
 sum_components = session.query(Item.name, func.sum(Component.quantity)).join(Component).group_by(Item.id).all()
 print(sum_components)
-
 
 # At your discretion, form a query for the selected data and describe it.
 # At your discretion, form a query for the selected data and describe it.
